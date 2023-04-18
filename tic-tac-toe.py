@@ -8,13 +8,21 @@
         Sprawdzenie wygrywajacych ruchow oraz czy ruch zostal wykonany i nastepuje zamiana stron
 
 """
-
+LOGO = """
+         _______ _        _______           _______
+        |__   __(_)      |__   __|         |__   __| 
+           | |   _  ___     | | __ _  ___     | | ___   ___ 
+           | |  | |/ __|    | |/ _` |/ __|    | |/ _ \\ / _ \\ 
+           | |  | | (__     | | (_| | (__     | | (_) |  __/ 
+           |_|  |_|\\___|    |_|\\__,_|\\___|    |_|\\___/ \\___|
+"""
 
 def menu():
     while True:
+        print(LOGO)
         print("1. Rozpocznij gre")
         print("2. Sprawdz ilosc przegranych i wygranych")
-        print("3. Wyjdz z gry")
+        print("3. Wyjdz z gry\n")
         player_choice = input("Wybierz opcje: ")
         if player_choice == "1":
             print("1. Czlowiek vs Czlowiek")
@@ -39,11 +47,14 @@ def menu():
 
 
 Empty_board_list = ["x", "x", "x", " ", " ", " ", "o", "o", "o"]
+
+menu()
 def print_board(board):
     print(board[0] + " | " + board[1] + " | " + board[2])
     print("----------")
     print(board[3] + " | " + board[4] + " | " + board[5])
     print("----------")
     print(board[6] + " | " + board[7] + " | " + board[8])
+
 
 print_board(Empty_board_list)
