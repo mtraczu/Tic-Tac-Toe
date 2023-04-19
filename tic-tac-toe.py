@@ -22,6 +22,7 @@ used_moves = []
 player_one = "X"
 player_two = "O"
 
+
 def print_example_board():
     print("[0]" + " | " + "[1]" + " | " + "[2]")
     print("----------")
@@ -93,13 +94,35 @@ def check_winner(WIN_MOVES, player_mark, board):
             print("wygral gracz: " + player_mark)
             return winner
 
+def who_first(choice):
+    if choice == 1:
+        player = player_one
+        print("Zaczyna gracz X")
+        return player
+    elif choice == 2:
+        player = player_two
+        print("Zaczyna gracz O")
+        return player
+
+
+def change_player(switch):
+    if switch == player_one:
+        switch = player_two
+        return switch
+    elif switch == player_two:
+        switch = player_one
+        return switch
+
 
 board = new_board()
-while len(used_moves) < 9:
-    print(used_moves)
+winner = None
+player = player_one
+while len(used_moves) < 9 and (winner != player_one and winner != player_two):
     print_board(board)
-    player_move(board, player_one)
-    check_winner(WIN_MOVES,player_one,board)
+    player_move(board, player)
+    winner = check_winner(WIN_MOVES, player, board)
+    print(winner)
+    player = change_player(player)
+    print(player)
 print_board(board)
 print("Koniec gry")
-
