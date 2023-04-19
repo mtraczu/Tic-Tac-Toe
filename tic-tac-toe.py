@@ -1,13 +1,4 @@
 # Tic-Tac-Toe
-# 1. Zrobic menu z opcjami: 1. Start gry > Zaczynasz pierwszy czy komputer zaczyna pierwszy, 2. Ilosc wygranych i przegranych, 3. Wyjscie z gry
-# 2. Zrobic plansze gry
-# 3. Zrobic wygrywajace ruchy
-
-""" Po rozpoczeciu gry w zaleznosci kto pierwszy zaczyna stawia swoj znak,
-        Petla:
-        Sprawdzenie wygrywajacych ruchow oraz czy ruch zostal wykonany i nastepuje zamiana stron
-
-"""
 LOGO = """
          _______ _        _______           _______
         |__   __(_)      |__   __|         |__   __| 
@@ -16,6 +7,26 @@ LOGO = """
            | |  | | (__     | | (_| | (__     | | (_) |  __/ 
            |_|  |_|\\___|    |_|\\__,_|\\___|    |_|\\___/ \\___|
 """
+
+WIN_MOVES = (
+    [0, 1, 2],
+    [3, 4, 6],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+)
+used_moves = []
+
+
+def print_example_board():
+    print("[0]" + " | " + "[1]" + " | " + "[2]")
+    print("----------")
+    print("[3]" + " | " + "[4]" + " | " + "[5]")
+    print("----------")
+    print("[6]" + " | " + "[7]" + " | " + "[8]")
 
 
 def menu():
@@ -47,11 +58,6 @@ def menu():
             break
 
 
-Empty_board_list = ["x", "x", "x", " ", " ", " ", "o", "o", "o"]
-
-#menu()
-
-
 def print_board(board):
     print(board[0] + " | " + board[1] + " | " + board[2])
     print("----------")
@@ -63,10 +69,28 @@ def print_board(board):
 def new_board():
     board = []
     field = " "
-    for _ in range(0,9):
+    for _ in range(0, 9):
         board.append(field)
     return board
 
 
+def player_move(board, player_mark):
+    while True:
+        player_choice = int(input("Wybierz od 0-8 gdzie chcesz postawic znak: "))
+        if player_choice not in used_moves:
+            board[player_choice] = player_mark
+            used_moves.append(player_choice)
+            return board
+        else:
+            print("te pole jest juz zajete, wybierz inne")
+
+
+
 board = new_board()
+while len(used_moves) < 9:
+    print(used_moves)
+    print_board(board)
+    player_move(board, "x")
 print_board(board)
+print("Koniec gry")
+
