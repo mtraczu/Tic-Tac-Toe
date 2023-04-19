@@ -17,6 +17,7 @@ LOGO = """
            |_|  |_|\\___|    |_|\\__,_|\\___|    |_|\\___/ \\___|
 """
 
+
 def menu():
     while True:
         print(LOGO)
@@ -48,7 +49,9 @@ def menu():
 
 Empty_board_list = ["x", "x", "x", " ", " ", " ", "o", "o", "o"]
 
-menu()
+#menu()
+
+
 def print_board(board):
     print(board[0] + " | " + board[1] + " | " + board[2])
     print("----------")
@@ -57,4 +60,13 @@ def print_board(board):
     print(board[6] + " | " + board[7] + " | " + board[8])
 
 
-print_board(Empty_board_list)
+def new_board():
+    board = []
+    field = " "
+    for _ in range(0,9):
+        board.append(field)
+    return board
+
+
+board = new_board()
+print_board(board)
