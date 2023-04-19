@@ -19,7 +19,8 @@ WIN_MOVES = (
     [2, 4, 6]
 )
 used_moves = []
-
+player_one = "X"
+player_two = "O"
 
 def print_example_board():
     print("[0]" + " | " + "[1]" + " | " + "[2]")
@@ -85,12 +86,20 @@ def player_move(board, player_mark):
             print("te pole jest juz zajete, wybierz inne")
 
 
+def check_winner(WIN_MOVES, player_mark, board):
+    for x in WIN_MOVES:
+        if board[x[0]] == player_mark and board[x[1]] == player_mark and board[x[2]] == player_mark:
+            winner = player_mark
+            print("wygral gracz: " + player_mark)
+            return winner
+
 
 board = new_board()
 while len(used_moves) < 9:
     print(used_moves)
     print_board(board)
-    player_move(board, "x")
+    player_move(board, player_one)
+    check_winner(WIN_MOVES,player_one,board)
 print_board(board)
 print("Koniec gry")
 
