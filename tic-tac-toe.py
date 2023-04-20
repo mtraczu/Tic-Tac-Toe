@@ -1,4 +1,6 @@
 # Tic-Tac-Toe
+import random
+
 LOGO = """
          _______ _        _______           _______
         |__   __(_)      |__   __|         |__   __| 
@@ -86,6 +88,13 @@ def player_move(board, player_mark):
         else:
             print("te pole jest juz zajete, wybierz inne")
 
+def computer_move(board,player_mark):
+    while True:
+        player_choice = random.randint(0,8)
+        if player_choice not in used_moves:
+            board[player_choice] = player_mark
+            used_moves.append(player_choice)
+            return board
 
 def check_winner(WIN_MOVES, player_mark, board):
     for x in WIN_MOVES:
@@ -93,6 +102,7 @@ def check_winner(WIN_MOVES, player_mark, board):
             winner = player_mark
             print("wygral gracz: " + player_mark)
             return winner
+
 
 def who_first(choice):
     if choice == 1:
@@ -119,8 +129,12 @@ winner = None
 player = player_one
 while len(used_moves) < 9 and (winner != player_one and winner != player_two):
     print_board(board)
-    player_move(board, player)
-    winner = check_winner(WIN_MOVES, player, board)
+    if player == player_one:
+        player_move(board, player)
+        winner = check_winner(WIN_MOVES, player, board)
+    elif player == player_two:
+        computer_move(board, player)
+        winner = check_winner(WIN_MOVES, player, board)
     print(winner)
     player = change_player(player)
     print(player)
