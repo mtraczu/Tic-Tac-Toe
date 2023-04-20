@@ -80,13 +80,21 @@ def new_board():
 
 def player_move(board, player_mark):
     while True:
-        player_choice = int(input("Wybierz od 0-8 gdzie chcesz postawic znak: "))
-        if player_choice not in used_moves:
-            board[player_choice] = player_mark
-            used_moves.append(player_choice)
-            return board
-        else:
-            print("te pole jest juz zajete, wybierz inne")
+        try:
+            player_choice = int(input("Wybierz od 0-8 gdzie chcesz postawic znak: "))
+            if player_choice in range(0, 9):
+                if player_choice not in used_moves:
+                    board[player_choice] = player_mark
+                    used_moves.append(player_choice)
+                    return board
+                else:
+                    print("te pole jest juz zajete, wybierz inne")
+            else:
+                print("Nieprawidlowy ruch")
+        except ValueError:
+            print("Nieprawidlowa opcja")
+
+
 
 def computer_move(board,player_mark):
     while True:
