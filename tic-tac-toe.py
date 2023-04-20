@@ -51,7 +51,7 @@ def new_board():
 def player_move(board, player_mark):
     while True:
         try:
-            player_choice = int(input("Choose from 0-8 where you want to put your mark:"))
+            player_choice = int(input("Choose from 0-8 where you want to put your mark: "))
             if player_choice in range(0, 9):
                 if player_choice not in used_moves:
                     board[player_choice] = player_mark
@@ -79,8 +79,6 @@ def check_winner(win_moves, player_mark, board):
         if board[x[0]] == player_mark and board[x[1]] == player_mark and board[x[2]] == player_mark:
             winner = player_mark
             print_board(board)
-            print("The winner is: " + player_mark)
-            input("Press Enter to exit")
             return winner
 
 
@@ -108,9 +106,16 @@ def game(computer_or_human, chosen_player=PLAYER_ONE):
             computer_or_human(board, player)
             winner = check_winner(WIN_MOVES, player, board)
         player = change_player(player)
-        print(player)
-    print_board(board)
-    print("End of game")
+    print("\n--- End of game ---\n")
+    if winner == PLAYER_ONE or winner == PLAYER_TWO:
+        print_board(board)
+        print("\nThe winner is: " + winner)
+        input("\nPress Enter to exit")
+    else:
+        print_board(board)
+        print("\nDRAW")
+        input("Press Enter to exit")
+    used_moves.clear()
 
 
 def main():
