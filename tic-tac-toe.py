@@ -20,8 +20,8 @@ WIN_MOVES = (
     [2, 4, 6]
 )
 used_moves = []
-player_one = "X"
-player_two = "O"
+PLAYER_ONE = "X"
+PLAYER_TWO = "O"
 
 
 def print_example_board():
@@ -51,18 +51,18 @@ def new_board():
 def player_move(board, player_mark):
     while True:
         try:
-            player_choice = int(input("Wybierz od 0-8 gdzie chcesz postawic znak: "))
+            player_choice = int(input("Choose from 0-8 where you want to put your mark:"))
             if player_choice in range(0, 9):
                 if player_choice not in used_moves:
                     board[player_choice] = player_mark
                     used_moves.append(player_choice)
                     return board
                 else:
-                    print("te pole jest juz zajete, wybierz inne")
+                    print("This field is already used, select another")
             else:
-                print("Nieprawidlowy ruch")
+                print("Wrong move")
         except ValueError:
-            print("Nieprawidlowa opcja")
+            print("Invalid option")
 
 
 def computer_move(board, player_mark):
@@ -74,88 +74,76 @@ def computer_move(board, player_mark):
             return board
 
 
-def check_winner(WIN_MOVES, player_mark, board):
-    for x in WIN_MOVES:
+def check_winner(win_moves, player_mark, board):
+    for x in win_moves:
         if board[x[0]] == player_mark and board[x[1]] == player_mark and board[x[2]] == player_mark:
             winner = player_mark
             print_board(board)
-            print("Wygral gracz: " + player_mark)
-            input("Nacisnij Enter aby wyjsc")
+            print("The winner is: " + player_mark)
+            input("Press Enter to exit")
             return winner
 
 
-def who_first(choice):
-    if choice == 1:
-        player = player_one
-        print("Zaczyna gracz X")
-        return player
-    elif choice == 2:
-        player = player_two
-        print("Zaczyna gracz O")
-        return player
-
-
 def change_player(switch):
-    if switch == player_one:
-        switch = player_two
+    if switch == PLAYER_ONE:
+        switch = PLAYER_TWO
         return switch
-    elif switch == player_two:
-        switch = player_one
+    elif switch == PLAYER_TWO:
+        switch = PLAYER_ONE
         return switch
 
 
-def game(computer_or_human, chosen_player=player_one):
+def game(computer_or_human, chosen_player=PLAYER_ONE):
     board = new_board()
     winner = None
     player = chosen_player
-    while len(used_moves) < 9 and (winner != player_one and winner != player_two):
+    while len(used_moves) < 9 and (winner != PLAYER_ONE and winner != PLAYER_TWO):
         print_board(board)
-        if player == player_one:
+        if player == PLAYER_ONE:
+            print("Player " + PLAYER_ONE + " turn")
             player_move(board, player)
             winner = check_winner(WIN_MOVES, player, board)
-        elif player == player_two:
+        elif player == PLAYER_TWO:
+            print("Player " + PLAYER_TWO + " turn")
             computer_or_human(board, player)
             winner = check_winner(WIN_MOVES, player, board)
-        print(winner)
         player = change_player(player)
         print(player)
     print_board(board)
-    print("Koniec gry")
+    print("End of game")
 
 
 def main():
     while True:
         print(LOGO)
-        print("1. Rozpocznij gre")
-        print("2. Sprawdz ilosc przegranych i wygranych")
-        print("3. Zasady gry")
-        print("4. Wyjdz z gry\n")
-        player_choice = input("Wybierz opcje: ")
+        print("1. Start game")
+        print("2. Rules of the game")
+        print("3. Exit\n")
+        player_choice = input("Choose option: ")
         if player_choice == "1":
-            print("1. Czlowiek vs Czlowiek")
-            print("2. Czlowiek vs Komputer")
-            player_choice = input("Wybierz opcje: ")
+            print("1. Human vs. Human")
+            print("2. Human vs. Computer")
+            player_choice = input("Choose option: ")
             if player_choice == "1":
                 game(player_move)
             elif player_choice == "2":
-                print("1. Zaczynam jako pierwszy")
-                print("2. Komputer Zaczyna jako pierwszy")
-                player_choice = input("Wybierz opcje: ")
+                print("1. Human starts first")
+                print("2. Computer starts first")
+                player_choice = input("Choose option: ")
                 if player_choice == "1":
                     game(computer_move)
                 elif player_choice == "2":
-                    game(computer_move, player_two)
+                    game(computer_move, PLAYER_TWO)
         elif player_choice == "2":
-            print("Sprawdzam wyniki")
-            input("Nacisnij enter aby wyjsc")
-        elif player_choice == "3":
-            print("""\nGracz wybiera cyfre od 0 do 8, ktora odpowiada polu na planszy. Po wybraniu nastepuje zamiana i
-kolejny gracz wybiera swoje pole. Aby wygrac trzeba ulozyc 3 takie same znaki w jednej lini - poziomej
-pionowej lub skosnej. Ponizsza plansza przedstawia rozmieszczenie numerow, ktore nalezy wybierac\n""")
+            print("""\nPlayer chooses a number from 0 to 8, which corresponds to a field on the board. 
+After choosing, there is a swap and the next player chooses their field. To win, you need to arrange 3 identical 
+symbols in one line - horizontally, vertically or diagonally. The board below shows the arrangement of numbers that 
+should be chosen.\n""")
             print_example_board()
-            input("\nNacisnij Enter aby wyjsc")
-        elif player_choice == "4":
-            print("Good Bye")
+            input("\nPress Enter to exit")
+        elif player_choice == "3":
+            print("Goodbye")
             break
+
 
 main()
